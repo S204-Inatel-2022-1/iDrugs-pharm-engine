@@ -10,6 +10,8 @@
     Esse projeto é responsável por cadastrar, editar, excluir e listar tudo referente a farmácia, assim como remédios e seus funcionarios.
 </p>
 
+### [Casos de uso](https://github.com/S204-Inatel-2022-1/iDrugs-pharm-engine/blob/26ddaedb3c85a707f924ba918a1c77fa605af2f0/casos_de_uso.md)
+
 ### Para rodar seu ambiente deve possuir:
 1. Git Bash <br/>
 https://gitforwindows.org/
