@@ -14,14 +14,12 @@ Feature: Farmácia
 
     # Tipo
     Scenario: Cadastrar tipagem
-        When O funcionario cadastra o tipo do produto
-        Then Cadastrado com sucesso!
+        When O funcionario cadastra o tipo do produto "medicamentos"
+        Then Tipagem cadastrado com sucesso!
 
     Scenario: Cadastrar tipagem com erro de duplicidade
-        Given Cadastrando tipagem
-            | nome do tipo |
-        When O funcionario cadastra o tipo do produto que já possui registro
-            | nome do tipo |
+        Given Cadastrando tipagem "medicamentos"
+        When O funcionario cadastra o tipo do produto "medicamentos"
         Then Produto já existe! Erro!
 
     Scenario: Editar tipagem
