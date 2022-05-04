@@ -5,18 +5,21 @@ from bson import json_util, ObjectId
 from flask import Response
 from werkzeug.security import generate_password_hash
 
-from config import mongo
+from config import mongo, bd_table
 
-db = mongo.test.user
+db = mongo.get_database(bd_table).user
 
 def create_user(self):
     r = json.loads(self)
     id = r.get('_id')
     name = r.get('name')
+    last_name = r.get('last_name')
+    office = r.get('office')
+    photo_link = r.get('photo_link')
     passw = r.get('password')
     email = r.get('email')
     if id is not None:
-        return edit_user(id, name, passw, email)
+        return edit_user(id, name, passw, email, last_name, office, photo_link)
 
     user = get_user_email(email)
     if user:
@@ -25,39 +28,48 @@ def create_user(self):
 
     hash_password = generate_password_hash(passw)
     id = db.insert_one(
-        {'name': name, 'email': email, 'password': hash_password}
+        {'name': name, 'email': email, 'password': hash_password, 'last_name': last_name, 'office': office, 'photo_link': photo_link}
     )
     jsonDate = {
         'id': str(id.inserted_id),
         'name': name,
         'password': hash_password,
+        'last_name': last_name,
+        'office': office,
+        'photo_link': photo_link,
         'email': email
     }
     response = json_util.dumps(jsonDate)
     return Response(response, mimetype='application/json', status=201)
 
-def edit_user(id, name, passw, email):
+def edit_user(id, name, passw, email, last_name, office, photo_link):
     if passw is not None:
         hash_password = generate_password_hash(passw)
         db.update_one(
             {'_id': ObjectId(id)},
-            {'$set': {'name': name, 'email': email, 'password': hash_password}}
+            {'$set': {'name': name, 'email': email, 'password': hash_password, 'last_name': last_name, 'office': office, 'photo_link': photo_link}}
         )
         jsonDate = {
             'id': str(id),
             'name': name,
-            'email': email
+            'email': email,
+            'last_name': last_name,
+            'office': office,
+            'photo_link': photo_link
         }
         response = json_util.dumps(jsonDate)
         return Response(response, mimetype='application/json', status=200)
     db.update_one(
         {'_id': ObjectId(id)},
-        {'$set': {'name': name, 'email': email}}
+        {'$set': {'name': name, 'email': email, 'last_name': last_name, 'office': office, 'photo_link': photo_link}}
     )
     jsonDate = {
         'id': str(id),
         'name': name,
-        'email': email
+        'email': email,
+        'last_name': last_name,
+        'office': office,
+        'photo_link': photo_link
     }
     response = json_util.dumps(jsonDate)
     return Response(response, mimetype='application/json', status=200)

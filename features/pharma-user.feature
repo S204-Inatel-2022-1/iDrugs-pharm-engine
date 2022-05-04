@@ -1,16 +1,14 @@
+@user
 Feature: Farmácia
 
     Serviço responsável pelo controle da parte da Farmácia.
 
-    # nome do produto = String
-    # Marca = String
-    # Preço = BigDecimal
-    # Tipo = Enum -> Que o cliente cadastra
-    # Prescrição Médica = Boolean (Precisa ou não de Prescrição Médica)
-    # Classificação = Enum (Tarja pré cadastrada no sistema)
-    # Descrição = String
-    # Foto = String (Link da foto)
-    # Bula = String (Link pdf da bula)
+    # nome = String
+    # sobrenome = String
+    # cargo = String
+    # email = String
+    # senha = String
+    # link foto = String
 
     # Usuário
     Scenario: Cadastrar um usuário com sucesso
@@ -18,6 +16,10 @@ Feature: Farmácia
             """
                 {
                     "name": "Ítalo",
+                    "last_name": "Moura",
+                    "photo_link": "fotolink.jpg",
+                    "office": "Gerente",
+                    "last_name": "Moura",
                     "email": "itmoura@gmail.com",
                     "password": "minhasenha"
                 }
@@ -29,6 +31,9 @@ Feature: Farmácia
             """
                 {
                     "name": "Ítalo",
+                    "last_name": "Moura",
+                    "photo_link": "fotolink.jpg",
+                    "office": "Gerente",
                     "email": "itmoura@gmail.com",
                     "password": "minhasenha"
                 }
@@ -37,6 +42,9 @@ Feature: Farmácia
             """
                 {
                     "name": "Ítalo",
+                    "last_name": "Moura",
+                    "photo_link": "fotolink.jpg",
+                    "office": "Gerente",
                     "email": "itmoura@gmail.com",
                     "password": "minhasenha"
                 }
@@ -48,6 +56,9 @@ Feature: Farmácia
             """
                 {
                     "name": "Ítalo",
+                    "last_name": "Moura",
+                    "photo_link": "fotolink.jpg",
+                    "office": "Gerente",
                     "email": "itmoura@gmail.com",
                     "password": "minhasenha"
                 }
@@ -59,6 +70,9 @@ Feature: Farmácia
             """
                 {
                     "name": "Ítalo",
+                    "last_name": "Moura",
+                    "photo_link": "fotolink.jpg",
+                    "office": "Gerente",
                     "email": "itmoura@gmail.com",
                     "password": "minhasenha"
                 }
@@ -66,7 +80,10 @@ Feature: Farmácia
         When Editar o funcionario com email "itmoura@gmail.com"
             """
                 {
-                    "name": "Ítalo Moura",
+                    "name": "Ítalo",
+                    "last_name": "Moura",
+                    "photo_link": "fotolink.jpg",
+                    "office": "Gerente",
                     "email": "italo@gmail.com",
                     "password": "senha"
                 }
@@ -78,6 +95,9 @@ Feature: Farmácia
             """
                 {
                     "name": "Ítalo",
+                    "last_name": "Teste",
+                    "photo_link": "fotolink.jpg",
+                    "office": "Gerente",
                     "email": "itmoura@gmail.com",
                     "password": "minhasenha"
                 }

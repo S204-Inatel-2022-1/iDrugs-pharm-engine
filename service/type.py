@@ -4,9 +4,9 @@ import re
 from bson import json_util, ObjectId
 from flask import Response
 
-from config import mongo
+from config import mongo, bd_table
 
-db = mongo.db.type
+db = mongo.get_database(bd_table).type
 
 def create_type(self):
     r = json.loads(self)
