@@ -99,7 +99,7 @@ def find_user(args):
         response = json_util.dumps(db.find(filter))
         return Response(response, mimetype='application/json', status=200)
     else:
-        list_user()
+        return list_user()
 
 
 def delete_user(id):

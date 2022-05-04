@@ -13,7 +13,7 @@ def create_type(self):
     id = r.get('_id')
     name = r.get('name')
     if id is not None:
-        return edit_user(id, name)
+        return edit_type(id, name)
 
     type = get_type_name(name)
     if type:
@@ -30,7 +30,7 @@ def create_type(self):
     response = json_util.dumps(jsonDate)
     return Response(response, mimetype='application/json', status=201)
 
-def edit_user(id, name):
+def edit_type(id, name):
     db.update_one(
         {'_id': ObjectId(id)},
         {'$set': {'name': name}}
@@ -63,7 +63,7 @@ def find_type(args):
         response = json_util.dumps(db.find(filter))
         return Response(response, mimetype='application/json', status=200)
     else:
-        list_type()
+        return list_type()
 
 
 def delete_type(id):
