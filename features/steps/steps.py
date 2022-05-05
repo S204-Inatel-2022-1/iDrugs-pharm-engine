@@ -15,6 +15,9 @@ def step_impl(context):
     context.headers = {'content-type': 'application/json'}
     context.body = {
         "name": att['name'],
+        "last_name": att['last_name'],
+        "office": att['office'],
+        "photo_link": att['photo_link'],
         "email": att['email'],
         "password": att['password'],
     }
@@ -25,6 +28,9 @@ def cadastrar_o_funcionario(context):
     att = loads(context.text)
     context.body = {
         "name": att['name'],
+        "last_name": att['last_name'],
+        "office": att['office'],
+        "photo_link": att['photo_link'],
         "email": att['email'],
         "password": att['password'],
     }
@@ -66,12 +72,15 @@ def step_impl(context, email):
     context.body = {
         "_id": id['$oid'],
         "name": att['name'],
+        "last_name": att['last_name'],
+        "office": att['office'],
+        "photo_link": att['photo_link'],
         "email": att['email'],
         "password": att['password'],
     }
 
 def search_email(email):
-    response = requests.get(urlTemplate + '/user/search', params=email, headers={'content-type': 'application/json'})
+    response = requests.get(urlTemplate + '/user', params=email, headers={'content-type': 'application/json'})
     id = json.loads(response.content)[0]['_id']
     return id
 

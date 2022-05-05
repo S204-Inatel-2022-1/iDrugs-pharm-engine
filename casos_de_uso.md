@@ -1,14 +1,19 @@
 ### Funcionario Farmacia
 - nome = String
+- Sobrenome = String
 - email = String
 - Senha = String
+- Link foto = String
+- Cargo = String
 
+### Tipo Produto
+- Nome = String
 
 ### Produto
 - nome do produto = String
 - Marca = String
 - Preço = BigDecimal
-- Tipo = Enum -> Que o cliente cadastra
+- Tipo = String
 - Prescrição Médica = Boolean (Precisa ou não de Prescrição Médica)
 - Classificação = Enum (Tarja pré cadastrada no sistema)
 - Descrição = String

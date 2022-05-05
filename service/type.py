@@ -4,16 +4,16 @@ import re
 from bson import json_util, ObjectId
 from flask import Response
 
-from config import mongo
+from config import mongo, bd_table
 
-db = mongo.db.type
+db = mongo.get_database(bd_table).type
 
 def create_type(self):
     r = json.loads(self)
     id = r.get('_id')
     name = r.get('name')
     if id is not None:
-        return edit_user(id, name)
+        return edit_type(id, name)
 
     type = get_type_name(name)
     if type:
@@ -30,7 +30,7 @@ def create_type(self):
     response = json_util.dumps(jsonDate)
     return Response(response, mimetype='application/json', status=201)
 
-def edit_user(id, name):
+def edit_type(id, name):
     db.update_one(
         {'_id': ObjectId(id)},
         {'$set': {'name': name}}
@@ -53,7 +53,8 @@ def list_type():
     response = json_util.dumps({'message': 'Nenhum registro encontrado'})
     return Response(response, mimetype='application/json', status=400)
 
-def find_type(args):
+def find_type(self):
+    args = json.loads(self)
     if args:
         name = args.get('name')
         filter = {}
@@ -63,12 +64,13 @@ def find_type(args):
         response = json_util.dumps(db.find(filter))
         return Response(response, mimetype='application/json', status=200)
     else:
-        list_type()
+        return list_type()
 
 
-def delete_type(id):
-    r = json.loads(id)
-    find = db.delete_one({'_id': ObjectId(r)})
+def delete_type(self):
+    r = json.loads(self)
+    id = r.get('_id')
+    find = db.delete_one({'_id': ObjectId(id)})
     if find:
         response = json_util.dumps({'message': 'Deletado com sucesso!'})
         return Response(response, status=200)
