@@ -1,4 +1,6 @@
-from flask import request, Blueprint
+import os
+
+from flask import request, Blueprint, jsonify
 
 from config import app
 from service.product import create_product, find_product, delete_product
@@ -52,7 +54,12 @@ def delete_product_route():
     response = request.json
     return delete_product(response)
 
+@app.route('/')
+def status():
+    return jsonify({"message": "IDRUGS-PHARMA-ENGINE: Aplicação rodando"})
+
 app.register_blueprint(blueprint)
 
 if __name__ == "__main__":
-    app.run(port=8081, debug=True)
+    port = int(os.environ.get("PORT", 8081))
+    app.run(host='0.0.0.0', port=port)
