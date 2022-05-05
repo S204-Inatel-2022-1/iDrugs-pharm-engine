@@ -1,6 +1,7 @@
 import os
 
 from flask import request, Blueprint, jsonify
+from flask_cors import CORS
 
 from config import app
 from service.product import create_product, find_product, delete_product
@@ -8,6 +9,8 @@ from service.type import create_type, find_type, delete_type
 from service.user import create_user, find_user, delete_user
 
 blueprint = Blueprint('app', __name__, url_prefix='/idrugs-pharma-engine')
+
+CORS(app)
 
 # USER
 @blueprint.route('/user', methods=['POST', 'PUT'])
