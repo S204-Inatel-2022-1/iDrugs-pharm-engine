@@ -1,11 +1,13 @@
 import json
 
 from flask import request
+from flask_cors import CORS
 
 from config import app
 from service.type import create_type
 from service.user import create_user, list_user, find_user, delete_user
 
+CORS(app)
 
 # USER
 @app.route('/user', methods=['POST', 'PUT'])
