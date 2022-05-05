@@ -85,7 +85,8 @@ def list_user():
     response = json_util.dumps({'message': 'Nenhum registro encontrado'})
     return Response(response, mimetype='application/json', status=400)
 
-def find_user(args):
+def find_user(self):
+    args = json.loads(self)
     if args:
         name = args.get('name')
         email = args.get('email')
@@ -102,9 +103,10 @@ def find_user(args):
         return list_user()
 
 
-def delete_user(id):
-    r = json.loads(id)
-    find = db.delete_one({'_id': ObjectId(r)})
+def delete_user(self):
+    r = json.loads(self)
+    id = r.get('_id')
+    find = db.delete_one({'_id': ObjectId(id)})
     if find:
         response = json_util.dumps({'message': 'Deletado com sucesso!'})
         return Response(response, status=200)

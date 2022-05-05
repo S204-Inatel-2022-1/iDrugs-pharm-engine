@@ -12,4 +12,3 @@ app.env = os.getenv('ENV')
 mongo = MongoClient('mongodb+srv://admin:Z4AfmmErlf7ftV98@cluster0.ayyzp.mongodb.net/')
 
 bd_table = app.env
-

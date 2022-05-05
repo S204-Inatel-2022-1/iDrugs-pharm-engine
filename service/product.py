@@ -74,7 +74,8 @@ def list_product():
     response = json_util.dumps({'message': 'Nenhum registro encontrado'})
     return Response(response, mimetype='application/json', status=400)
 
-def find_product(args):
+def find_product(self):
+    args = json.loads(self)
     if args:
         name = args.get('name')
         brand = args.get('brand')
@@ -95,11 +96,12 @@ def find_product(args):
         return list_product()
 
 
-def delete_product(id):
-    r = json.loads(id)
-    find = db.delete_one({'_id': ObjectId(r)})
+def delete_product(self):
+    r = json.loads(self)
+    id = r.get('_id')
+    find = db.delete_one({'_id': ObjectId(id)})
     if find:
         response = json_util.dumps({'message': 'Deletado com sucesso!'})
-        return Response(response, status=200)
+        return Response(response, mimetype='application/json', status=200)
     response = json_util.dumps({'message': 'Id não encontrado'})
-    return Response(response, status=400)
+    return Response(response, mimetype='application/json', status=400)

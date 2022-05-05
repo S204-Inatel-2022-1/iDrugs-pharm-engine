@@ -53,7 +53,8 @@ def list_type():
     response = json_util.dumps({'message': 'Nenhum registro encontrado'})
     return Response(response, mimetype='application/json', status=400)
 
-def find_type(args):
+def find_type(self):
+    args = json.loads(self)
     if args:
         name = args.get('name')
         filter = {}
@@ -66,9 +67,10 @@ def find_type(args):
         return list_type()
 
 
-def delete_type(id):
-    r = json.loads(id)
-    find = db.delete_one({'_id': ObjectId(r)})
+def delete_type(self):
+    r = json.loads(self)
+    id = r.get('_id')
+    find = db.delete_one({'_id': ObjectId(id)})
     if find:
         response = json_util.dumps({'message': 'Deletado com sucesso!'})
         return Response(response, status=200)
