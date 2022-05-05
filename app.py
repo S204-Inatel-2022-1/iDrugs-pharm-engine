@@ -15,7 +15,7 @@ def create_user_route():
     response = request.json
     return create_user(response)
 
-@app.route('/user', methods=['GET'])
+@blueprint.route('/user', methods=['GET'])
 def find_user_route():
     return find_user(request.json)
 

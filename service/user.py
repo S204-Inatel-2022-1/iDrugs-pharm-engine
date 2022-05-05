@@ -2,7 +2,7 @@ import json
 import re
 
 from bson import json_util, ObjectId
-from flask import Response, jsonify
+from flask import Response
 from werkzeug.security import generate_password_hash
 
 from config import mongo, bd_table
@@ -81,7 +81,7 @@ def list_user():
     find = db.find({}, {'password':0})
     if find:
         response = json_util.dumps(find)
-        return jsonify(response)
+        return Response(response, mimetype='application/json', status=200)
     response = json_util.dumps({'message': 'Nenhum registro encontrado'})
     return Response(response, mimetype='application/json', status=400)
 
