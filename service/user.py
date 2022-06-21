@@ -9,6 +9,8 @@ from config import mongo, bd_table
 
 db = mongo.get_database(bd_table).user
 
+print(db)
+
 def create_user(self):
     r = json.loads(self)
     id = r.get('_id')
@@ -86,8 +88,8 @@ def list_user():
     return Response(response, mimetype='application/json', status=400)
 
 def find_user(self):
-    args = json.loads(self)
-    if args:
+    if self is not None:
+        args = json.loads(self)
         name = args.get('name')
         email = args.get('email')
         filter = {}
@@ -101,6 +103,11 @@ def find_user(self):
         return Response(response, mimetype='application/json', status=200)
     else:
         return list_user()
+
+def find_user_id(id):
+    if id is not None:
+        response = json_util.dumps(db.find_one({'_id': ObjectId(id)}))
+        return Response(response, mimetype='application/json', status=200)
 
 
 def delete_user(self):

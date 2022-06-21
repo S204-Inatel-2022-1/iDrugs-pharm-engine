@@ -75,8 +75,8 @@ def list_product():
     return Response(response, mimetype='application/json', status=400)
 
 def find_product(self):
-    args = json.loads(self)
-    if args:
+    if self is not None:
+        args = json.loads(self)
         name = args.get('name')
         brand = args.get('brand')
         leaflet = args.get('leaflet')
@@ -94,6 +94,17 @@ def find_product(self):
         return Response(response, mimetype='application/json', status=200)
     else:
         return list_product()
+
+def find_product_id(id):
+    if id is not None:
+        response = json_util.dumps(db.find_one({'_id': ObjectId(id)}))
+        return Response(response, mimetype='application/json', status=200)
+
+def find_product_type(type):
+    if type is not None:
+        response = json_util.dumps(db.find({'type': type}))
+        return Response(response, mimetype='application/json', status=200)
+
 
 
 def delete_product(self):

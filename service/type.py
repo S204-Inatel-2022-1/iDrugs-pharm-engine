@@ -54,8 +54,8 @@ def list_type():
     return Response(response, mimetype='application/json', status=400)
 
 def find_type(self):
-    args = json.loads(self)
-    if args:
+    if self is not None:
+        args = json.loads(self)
         name = args.get('name')
         filter = {}
         if name is not None:
@@ -65,6 +65,11 @@ def find_type(self):
         return Response(response, mimetype='application/json', status=200)
     else:
         return list_type()
+
+def find_type_id(id):
+    if id is not None:
+        response = json_util.dumps(db.find_one({'_id': ObjectId(id)}))
+        return Response(response, mimetype='application/json', status=200)
 
 
 def delete_type(self):
